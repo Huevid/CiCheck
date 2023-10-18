@@ -19,6 +19,9 @@ jobs:
     - name: Log in to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
+    - name: Docker run 
+      run: docker run -d -p 80:80 huveid/nginxcicd 
+       
     - name: Docker image list 
       run: docker images -a
 
