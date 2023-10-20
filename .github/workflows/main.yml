@@ -3,46 +3,47 @@ name: Build and Deploy Docker Image
 on:
   push:
     branches:
-      - main # Измените на имя вашей основной ветки
+      - main
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
 
     - name: Build Docker image
       run: |
         timestamp=$(date '+%Y%m%d%H%M%S')
         docker build -t huveid/nginxcicd:$timestamp -f Dockerfile .
-        
+      env:
+        DOCKER_BUILDKIT: 1
+
     - name: Log in to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
     - name: Push Docker image to Docker Hub
       run: |
-        timestamp=${{ steps.timestamp.outputs.timestamp }}
+        timestamp=$(date '+%Y%m%d%H%M%S')
         docker push huveid/nginxcicd:$timestamp
 
   deploy:
-    runs-on: self-hosted
-    needs: build
+    runs-on: ubuntu-latest
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Get current timestamp
-      id: timestamp
-      run: echo "::set-output name=timestamp::$(date '+%Y%m%d%H%M%S')"
-
     - name: Pull Docker image from Docker Hub
       run: |
-        timestamp=${{ steps.timestamp.outputs.timestamp }}
+        timestamp=$(date '+%Y%m%d%H%M%S')
         docker pull huveid/nginxcicd:$timestamp
 
     - name: Run Docker container
       run: |
-        timestamp=${{ steps.timestamp.outputs.timestamp }}
+        timestamp=$(date '+%Y%m%d%H%M%S')
         docker run -d -p 80:80 huveid/nginxcicd:$timestamp
