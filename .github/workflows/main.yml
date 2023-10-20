@@ -13,14 +13,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set timestamp
-      id: timestamp
-      run: echo "::set-output name=timestamp::$(date '+%Y%m%d%H%M%S')"
-
     - name: Build Docker image
       run: |
-        timestamp=${{ steps.timestamp.outputs.timestamp }}
+        timestamp=$(date '+%Y%m%d%H%M%S')
         docker build -t huveid/nginxcicd:$timestamp -f Dockerfile .
+        
     - name: Log in to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
