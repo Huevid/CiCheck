@@ -13,9 +13,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Docker delete previous containers
-      run: docker container rm $(docker ps -a -q)
-
     - name: Set timestamp
       id: timestamp
       run: echo "::set-output name=timestamp::$(date '+%Y%m%d%H%M%S')"
