@@ -51,9 +51,8 @@ jobs:
     - name: Pull Docker image from Docker Hub
       run: |
         timestamp=$(echo "${{ steps.timestamp.outputs.timestamp }}")
-        docker pull huveid/nginxcicd:${timestamp}
+        docker pull huveid/nginxcicd:latest
 
     - name: Run Docker container
       run: |
-        timestamp=$(echo "${{ steps.timestamp.outputs.timestamp }}")
-        docker run -d -p 80:80 huveid/nginxcicd:${timestamp}
+        docker run -d -p 80:80 huveid/nginxcicd:latest
