@@ -55,7 +55,7 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run -d -p 80:80 huveid/nginxcicd:latest --restart=always --name umedsimage
+        docker run -d -p 80:80 huveid/nginxcicd:latest --restart=always -t umedsimage
 
     - name: Docker ps
       run: docker ps -a
