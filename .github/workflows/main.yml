@@ -55,13 +55,13 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run -d -p 80:80 huveid/nginxcicd:latest --restart=always
+        docker run -d -p 80:80 huveid/nginxcicd:latest --restart=always --name umedsimage
 
     - name: Docker ps
       run: docker ps -a
     - name: Docker Container Logs
-      run: docker logs huveid/nginxcicd
+      run: docker logs umedsimage
 
     - name: NGINX Error Log
-      run: docker exec huveid/nginxcicd cat /var/log/nginx/error.log
+      run: docker exec umedsimage cat /var/log/nginx/error.log
 
