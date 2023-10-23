@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout repository
@@ -36,7 +36,7 @@ jobs:
         docker push huveid/nginxcicd:${timestamp}
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     needs: build
 
@@ -59,6 +59,7 @@ jobs:
 
     - name: Docker ps
       run: docker ps -a
+      
     - name: Docker Container Logs
       run: docker logs 123
 
