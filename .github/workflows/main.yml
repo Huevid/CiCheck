@@ -50,22 +50,14 @@ jobs:
         timestamp=$(echo "${{ steps.timestamp.outputs.timestamp }}")
         docker pull huveid/nginxcicd:latest
 
+    - name: Docker rm 123
+      run: docker rm 123
+
     - name: Run Docker container
       run: |
         docker run -d -p 80:80 --name 123 huveid/nginxcicd:latest
 
     - name: Docker ps
       run: docker ps -a
-      
-    - name: Docker stop
-      run: docker stop 123
 
-    - name: Docker start
-      run: docker start 123
-      
-    - name: Docker Container Logs
-      run: docker logs 123
-
-    - name: NGINX Error Log
-      run: docker exec 123 cat /var/log/nginx/error.log
 
