@@ -41,13 +41,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Get timestamp from previous job
-      id: timestamp
-      run: echo "::set-output name=timestamp::${{ needs.build.outputs.timestamp }}"
-
     - name: Pull Docker image from Docker Hub
-      run: |
-        timestamp=$(echo "${{ steps.timestamp.outputs.timestamp }}")
+      run: 
         docker pull huveid/nginxcicd:latest
 
     - name: Docker rm 123
