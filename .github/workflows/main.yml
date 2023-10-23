@@ -13,9 +13,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Docker rm 123
-      run: docker rmi huveid/nginxcicd*
-      
     - name: Generate timestamp
       id: timestamp
       run: echo "::set-output name=timestamp::$(date '+%Y%m%d%H%M%S')"
