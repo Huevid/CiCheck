@@ -51,7 +51,7 @@ jobs:
         docker pull huveid/nginxcicd:latest
 
     - name: Docker rm 123
-      run: docker -f rm 123
+      run: docker rm -f 123
 
     - name: Run Docker container
       run: |
