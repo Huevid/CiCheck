@@ -57,6 +57,12 @@ jobs:
     - name: Docker ps
       run: docker ps -a
       
+    - name: Docker stop
+      run: docker stop 123
+
+    - name: Docker start
+      run: docker start 123
+      
     - name: Docker Container Logs
       run: docker logs 123
 
